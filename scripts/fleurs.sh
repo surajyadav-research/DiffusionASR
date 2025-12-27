@@ -1,0 +1,2 @@
+./scripts/train.sh ./configs/fleurs/openai-whisper-large-v2_linear-projector-ln_llama-7b-chat-hf.yaml
+./scripts/infer.sh ./configs/fleurs/openai-whisper-large-v2_linear-projector-ln_llama-7b-chat-hf.yaml

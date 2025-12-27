@@ -1,0 +1,1 @@
+AI4Bharat's IndicWav2Vec-base model weights should be next to this file. But, the links in their GitHub repository are broken.

@@ -1,0 +1,57 @@
+# Paths
+paths:
+  checkpoints_dir: "/mnt/disk-n8/checkpoints/"
+  artifacts_dir: "checkpoints/artifacts"
+  wandb_dir: "checkpoints/artifacts/test_wandb"
+  data_dir: "/home/abrol/DATASETS/IndicSUPERB"
+  train_data: "/mnt/disk-n8/data/librispeech/manifests/train-clean-100.jsonl"
+  valid_data: "/mnt/disk-n8/data/librispeech/manifests/dev-clean.jsonl"
+  list_of_test_manifest_files:
+    - "/mnt/disk-n8/data/librispeech/dummy/dev-clean.jsonl"
+    - "/mnt/disk-n8/data/librispeech/dummy/dev-other.jsonl"
+    - "/mnt/disk-n8/data/librispeech/dummy/test-clean.jsonl"
+    - "/mnt/disk-n8/data/librispeech/dummy/test-other.jsonl"
+
+language: "english"
+
+# Training parameters
+training:
+  num_epochs: 10
+  num_steps: 1000000
+  gradient_accumulation_steps: 2
+  warmup_steps: 1000
+  learning_rate: 0.0001 # 1e-4
+  weight_decay: 0.0
+  batch_size: 4
+  num_workers: 8
+  validation_frequency: 10000
+  resume_from_checkpoint: false
+
+# Model parameters
+model:
+  speech_encoder_name: "openai-whisper-large-v3"
+  llm_name: "llada-8b-instruct"
+  adapter_name: "linear-large-projector-ln" # this is sln-large adapter
+  mel_size: 128
+  fix_length_audio: -1
+  fix_audio_duration: 30 # all whisper based models need audios with fixed duration of 30 seconds
+  normalize: true
+  input_type: "mel"
+  prompt: "Transcribe speech to text: "
+  target_column: "processed_target"
+
+# Environment variables
+env:
+  tokenizers_parallelism: "true"
+  cuda_visible_devices: "0"
+  wandb_mode: "online"
+
+# Wandb configuration
+wandb:
+  project: "cse677-adl-project"
+  entity: "psb-cc-Indraprastha Institute of Information Technology"
+  name: "english__openai-whisper-large-v3_sln-large_llada-8b"
+
+inference:
+  batch_size: 1
+  num_workers: 1

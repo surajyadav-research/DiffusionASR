@@ -1,0 +1,655 @@
+mcore_gpt: true
+micro_batch_size: 3
+global_batch_size: 192
+rampup_batch_size: null
+tensor_model_parallel_size: 1
+pipeline_model_parallel_size: 1
+virtual_pipeline_model_parallel_size: null
+context_parallel_size: 1
+encoder_seq_length: 2048
+max_position_embeddings: 2048
+num_layers: 32
+hidden_size: 2048
+ffn_hidden_size: 7168
+num_attention_heads: 16
+num_query_groups: 8
+init_method_std: 0.01
+use_scaled_init_method: true
+hidden_dropout: 0.0
+attention_dropout: 0.0
+ffn_dropout: 0.0
+kv_channels: null
+apply_query_key_layer_scaling: true
+normalization: rmsnorm
+layernorm_epsilon: 1.0e-05
+do_layer_norm_weight_decay: false
+make_vocab_size_divisible_by: 128
+pre_process: true
+post_process: true
+persist_layer_norm: true
+bias: false
+activation: fast-swiglu
+headscale: false
+transformer_block_type: pre_ln
+openai_gelu: false
+normalize_attention_scores: true
+position_embedding_type: rope
+rotary_percentage: 1.0
+apply_rope_fusion: true
+cross_entropy_loss_fusion: true
+attention_type: multihead
+share_embeddings_and_output_weights: false
+scale_positional_embedding: true
+tokenizer:
+  library: sentencepiece
+  type: null
+  model: nemo:04e7b03ea8ac40578833b71a2ee64e86_tokenizer.model
+  vocab_file: null
+  merge_file: null
+  delimiter: null
+  sentencepiece_legacy: false
+native_amp_init_scale: 4294967296
+native_amp_growth_interval: 1000
+hysteresis: 2
+fp32_residual_connection: false
+fp16_lm_cross_entropy: false
+megatron_amp_O2: true
+grad_allreduce_chunk_size_mb: 125
+grad_div_ar_fusion: true
+gradient_accumulation_fusion: true
+bias_activation_fusion: true
+bias_dropout_add_fusion: true
+masked_softmax_fusion: true
+seed: 1234
+resume_from_checkpoint: null
+use_cpu_initialization: false
+onnx_safe: false
+apex_transformer_log_level: 30
+gradient_as_bucket_view: false
+sync_batch_comm: false
+activations_checkpoint_granularity: null
+activations_checkpoint_method: null
+activations_checkpoint_num_layers: null
+num_micro_batches_with_partial_activation_checkpoints: null
+activations_checkpoint_layers_per_pipeline: null
+sequence_parallel: false
+deterministic_mode: false
+transformer_engine: true
+fp8: false
+fp8_e4m3: false
+fp8_hybrid: false
+fp8_margin: 0
+fp8_interval: 1
+fp8_amax_history_len: 1024
+fp8_amax_compute_algo: max
+ub_tp_comm_overlap: false
+use_flash_attention: true
+gc_interval: 100
+nsys_profile:
+  enabled: false
+  trace:
+  - nvtx
+  - cuda
+  start_step: 10
+  end_step: 10
+  ranks:
+  - 0
+  gen_shape: false
+optim:
+  name: distributed_fused_adam
+  lr: 5.0e-06
+  weight_decay: 0.01
+  betas:
+  - 0.9
+  - 0.98
+  sched:
+    name: CosineAnnealing
+    warmup_steps: 100
+    constant_steps: 500
+    min_lr: 9.0e-08
+    max_steps: 264
+data:
+  data_impl: mmap
+  splits_string: 99990,8,2
+  seq_length: 2048
+  skip_warmup: true
+  num_workers: 1
+  dataloader_type: single
+  reset_position_ids: true
+  reset_attention_mask: true
+  eod_mask_loss: false
+  renormalize_blend_weights: true
+  index_mapping_dir: /home/cache-GBS4096-64-epoch1
+  data_prefix:
+  - 86218010836
+  - /data/pt_2_tokenized/hindi_os_filtered/chunk_3_text_document
+  - 89203718308
+  - /data/pt_2_tokenized/hindi_os_filtered/chunk_1_text_document
+  - 72665465052
+  - /data/pt_2_tokenized/hindi_os_filtered/chunk_2_text_document
+  - 148748298844
+  - /data/pt_2_tokenized/english_dclm/chunk_4_text_document
+  - 147845782900
+  - /data/pt_2_tokenized/english_dclm/chunk_5_text_document
+  - 147689168900
+  - /data/pt_2_tokenized/english_dclm/chunk_3_text_document
+  - 148580835608
+  - /data/pt_2_tokenized/english_dclm/chunk_1_text_document
+  - 147968579612
+  - /data/pt_2_tokenized/english_dclm/chunk_9_text_document
+  - 148510872816
+  - /data/pt_2_tokenized/english_dclm/chunk_6_text_document
+  - 19639585520
+  - /data/pt_2_tokenized/piyush_cc_sft/merged_hi_piyush_sft_tts_text_document
+  - 74060373400
+  - /data/pt_2_tokenized/hindi_high/chunk_2_text_document
+  - 99485352400
+  - /data/pt_2_tokenized/hindi_high/chunk_1_text_document
+  - 101180434384
+  - /data/pt_2_tokenized/synthetic_data_english/chunk_1_text_document
+  - 47855308988
+  - /data/pt_2_tokenized/synthetic_data_english/chunk_3_text_document
+  - 105856201588
+  - /data/pt_2_tokenized/synthetic_data_english/chunk_2_text_document
+  - 62174811696
+  - /data/pt_2_tokenized/culturax/chunk_1_text_document
+  - 87844625748
+  - /data/pt_2_tokenized/synthetic_data_hindi/chunk_4_text_document
+  - 61493125568
+  - /data/pt_2_tokenized/synthetic_data_hindi/chunk_5_text_document
+  - 90112555528
+  - /data/pt_2_tokenized/synthetic_data_hindi/chunk_1_text_document
+  - 91994870512
+  - /data/pt_2_tokenized/synthetic_data_hindi/chunk_2_text_document
+  - 81737735184
+  - /data/pt_2_tokenized/hindi_dclm/chunk_11_text_document
+  - 82478489560
+  - /data/pt_2_tokenized/hindi_dclm/chunk_8_text_document
+  - 84725887528
+  - /data/pt_2_tokenized/hindi_dclm/chunk_4_text_document
+  - 83225245240
+  - /data/pt_2_tokenized/hindi_dclm/chunk_7_text_document
+  - 82267971432
+  - /data/pt_2_tokenized/hindi_dclm/chunk_9_text_document
+  - 86453099372
+  - /data/pt_2_tokenized/hindi_dclm/chunk_2_text_document
+  - 85497319784
+  - /data/pt_2_tokenized/hindi_dclm/chunk_3_text_document
+  - 86743872568
+  - /data/pt_2_tokenized/hindi_dclm/chunk_1_text_document
+  - 83735862812
+  - /data/pt_2_tokenized/hindi_dclm/chunk_6_text_document
+  - 31750344880
+  - /data/pt_2_tokenized/hindi_dclm/chunk_13_text_document
+  - 81542548552
+  - /data/pt_2_tokenized/hindi_dclm/chunk_12_text_document
+  - 82018955128
+  - /data/pt_2_tokenized/hindi_dclm/chunk_10_text_document
+  - 84235619268
+  - /data/pt_2_tokenized/hindi_dclm/chunk_5_text_document
+  - 14278127832
+  - /data/data/English/part_90_tokenize_text_document
+  - 14510109552
+  - /data/data/English/part_60_tokenize_text_document
+  - 15098936452
+  - /data/data/English/part_17_tokenize_text_document
+  - 13601448572
+  - /data/data/English/part_64_tokenize_text_document
+  - 14835706152
+  - /data/data/English/part_85_tokenize_text_document
+  - 14460049412
+  - /data/data/English/part_37_tokenize_text_document
+  - 15727933972
+  - /data/data/English/part_27_tokenize_text_document
+  - 10526715592
+  - /data/data/English/part_78_tokenize_text_document
+  - 15368800284
+  - /data/data/English/part_28_tokenize_text_document
+  - 13766961028
+  - /data/data/English/part_43_tokenize_text_document
+  - 14052846236
+  - /data/data/English/part_98_tokenize_text_document
+  - 12623033368
+  - /data/data/English/part_66_tokenize_text_document
+  - 14135658112
+  - /data/data/English/part_3_tokenize_text_document
+  - 14485105144
+  - /data/data/English/part_46_tokenize_text_document
+  - 13753952852
+  - /data/data/English/part_6_tokenize_text_document
+  - 15813905392
+  - /data/data/English/part_13_tokenize_text_document
+  - 15941249116
+  - /data/data/English/part_30_tokenize_text_document
+  - 15051717508
+  - /data/data/English/part_83_tokenize_text_document
+  - 9970176104
+  - /data/data/English/part_77_tokenize_text_document
+  - 12610256396
+  - /data/data/English/part_44_tokenize_text_document
+  - 14610642324
+  - /data/data/English/part_39_tokenize_text_document
+  - 13146044728
+  - /data/data/English/part_81_tokenize_text_document
+  - 15527875096
+  - /data/data/English/part_42_tokenize_text_document
+  - 13849922388
+  - /data/data/English/part_19_tokenize_text_document
+  - 14436374624
+  - /data/data/English/part_9_tokenize_text_document
+  - 17498308088
+  - /data/data/English/part_26_tokenize_text_document
+  - 12789637892
+  - /data/data/English/part_4_tokenize_text_document
+  - 14949173844
+  - /data/data/English/part_52_tokenize_text_document
+  - 14365533176
+  - /data/data/English/part_8_tokenize_text_document
+  - 14441281876
+  - /data/data/English/part_58_tokenize_text_document
+  - 15392695440
+  - /data/data/English/part_38_tokenize_text_document
+  - 15384116156
+  - /data/data/English/part_89_tokenize_text_document
+  - 16298419436
+  - /data/data/English/part_2_tokenize_text_document
+  - 14330367176
+  - /data/data/English/part_48_tokenize_text_document
+  - 15552735288
+  - /data/data/English/part_82_tokenize_text_document
+  - 16172621584
+  - /data/data/English/part_84_tokenize_text_document
+  - 15793672220
+  - /data/data/English/part_33_tokenize_text_document
+  - 13888864336
+  - /data/data/English/part_34_tokenize_text_document
+  - 13724072132
+  - /data/data/English/part_53_tokenize_text_document
+  - 15584279684
+  - /data/data/English/part_35_tokenize_text_document
+  - 14902271700
+  - /data/data/English/part_94_tokenize_text_document
+  - 15193196456
+  - /data/data/English/part_21_tokenize_text_document
+  - 14748129268
+  - /data/data/English/part_40_tokenize_text_document
+  - 10314854464
+  - /data/data/English/part_73_tokenize_text_document
+  - 13103165344
+  - /data/data/English/part_55_tokenize_text_document
+  - 15261203508
+  - /data/data/English/part_88_tokenize_text_document
+  - 12231961632
+  - /data/data/English/part_59_tokenize_text_document
+  - 15842762652
+  - /data/data/English/part_16_tokenize_text_document
+  - 14736525332
+  - /data/data/English/part_47_tokenize_text_document
+  - 12841424504
+  - /data/data/English/part_54_tokenize_text_document
+  - 12702726748
+  - /data/data/English/part_65_tokenize_text_document
+  - 10174411152
+  - /data/data/English/part_74_tokenize_text_document
+  - 16256248684
+  - /data/data/English/part_12_tokenize_text_document
+  - 15255210648
+  - /data/data/English/part_87_tokenize_text_document
+  - 13178424712
+  - /data/data/English/part_62_tokenize_text_document
+  - 13633587416
+  - /data/data/English/part_99_tokenize_text_document
+  - 14675297312
+  - /data/data/English/part_29_tokenize_text_document
+  - 15614553852
+  - /data/data/English/part_24_tokenize_text_document
+  - 11943633164
+  - /data/data/English/part_69_tokenize_text_document
+  - 15935886924
+  - /data/data/English/part_32_tokenize_text_document
+  - 10471447344
+  - /data/data/English/part_67_tokenize_text_document
+  - 15043119852
+  - /data/data/English/part_1_tokenize_text_document
+  - 14006400680
+  - /data/data/English/part_23_tokenize_text_document
+  - 14990457788
+  - /data/data/English/part_15_tokenize_text_document
+  - 11948566488
+  - /data/data/English/part_63_tokenize_text_document
+  - 15584527804
+  - /data/data/English/part_86_tokenize_text_document
+  - 12454175532
+  - /data/data/English/part_72_tokenize_text_document
+  - 14112809736
+  - /data/data/English/part_56_tokenize_text_document
+  - 14675851856
+  - /data/data/English/part_93_tokenize_text_document
+  - 16366977324
+  - /data/data/English/part_14_tokenize_text_document
+  - 13615622192
+  - /data/data/English/part_22_tokenize_text_document
+  - 14515942572
+  - /data/data/English/part_50_tokenize_text_document
+  - 12054797200
+  - /data/data/English/part_97_tokenize_text_document
+  - 10790383084
+  - /data/data/English/part_68_tokenize_text_document
+  - 14976278172
+  - /data/data/English/part_51_tokenize_text_document
+  - 10534421776
+  - /data/data/English/part_80_tokenize_text_document
+  - 15565684004
+  - /data/data/English/part_31_tokenize_text_document
+  - 14714979084
+  - /data/data/English/part_0_tokenize_text_document
+  - 14577832124
+  - /data/data/English/part_36_tokenize_text_document
+  - 14432729500
+  - /data/data/English/part_49_tokenize_text_document
+  - 13950975272
+  - /data/data/English/part_96_tokenize_text_document
+  - 13323659932
+  - /data/data/English/part_57_tokenize_text_document
+  - 15706341052
+  - /data/data/English/part_92_tokenize_text_document
+  - 16049289820
+  - /data/data/English/part_41_tokenize_text_document
+  - 13217991732
+  - /data/data/English/part_70_tokenize_text_document
+  - 8578522692
+  - /data/data/English/part_79_tokenize_text_document
+  - 16488218144
+  - /data/data/English/part_18_tokenize_text_document
+  - 13001564832
+  - /data/data/English/part_5_tokenize_text_document
+  - 11258820740
+  - /data/data/English/part_76_tokenize_text_document
+  - 13967647968
+  - /data/data/English/part_61_tokenize_text_document
+  - 11541808508
+  - /data/data/English/part_75_tokenize_text_document
+  - 15057633804
+  - /data/data/English/part_45_tokenize_text_document
+  - 14747292088
+  - /data/data/English/part_95_tokenize_text_document
+  - 14443617112
+  - /data/data/English/part_20_tokenize_text_document
+  - 16364243844
+  - /data/data/English/part_10_tokenize_text_document
+  - 14447618336
+  - /data/data/English/part_7_tokenize_text_document
+  - 23254616048
+  - /data/data/English/part_25_tokenize_text_document
+  - 15081412036
+  - /data/data/English/part_91_tokenize_text_document
+  - 14335046292
+  - /data/data/English/part_11_tokenize_text_document
+  - 12270752968
+  - /data/data/English/part_71_tokenize_text_document
+  - 4567441348
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-10_text_document
+  - 56234901668
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-50_text_document
+  - 6928486564
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-34_text_document
+  - 46169304872
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-10_text_document
+  - 74898912248
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-31_text_document
+  - 21170154856
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-29_text_document
+  - 16215100796
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-16_text_document
+  - 16553970284
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2017-43_text_document
+  - 52721733856
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-45_text_document
+  - 44044644176
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-35_text_document
+  - 7631509328
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2017-22_text_document
+  - 10947340460
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-50_text_document
+  - 8299577252
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2017-39_text_document
+  - 19326401768
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-05_text_document
+  - 4264121420
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-23_text_document
+  - 43758857680
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-30_text_document
+  - 9582280696
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-49_text_document
+  - 17827214016
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-10_text_document
+  - 66018690148
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-40_text_document
+  - 42180509140
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-14_text_document
+  - 66713485356
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-39_text_document
+  - 30124516520
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-17_text_document
+  - 38139043908
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-22_text_document
+  - 41771603000
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-27_text_document
+  - 42835722616
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-07_text_document
+  - 36971479308
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-43_text_document
+  - 47431496892
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-40_text_document
+  - 52042998792
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-25_text_document
+  - 45502036916
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-42_text_document
+  - 32042032468
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-26_text_document
+  - 25955319436
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2017-17_text_document
+  - 43768603124
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-06_text_document
+  - 7705349944
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2020-24_text_document
+  - 44676287512
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-11_text_document
+  - 35482534412
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-40_text_document
+  - 14522790800
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2017-04_text_document
+  - 44029197156
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-15_text_document
+  - 44841539932
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2013-48_text_document
+  - 46942969340
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-35_text_document
+  - 43562919284
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-48_text_document
+  - 42817496868
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-36_text_document
+  - 2779331948
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-41_text_document
+  - 36370964704
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2016-18_text_document
+  - 16136005628
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-21_text_document
+  - 29650649532
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2021-04_text_document
+  - 40169676072
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2014-49_text_document
+  - 43457707188
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-32_text_document
+  - 46832019740
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2015-22_text_document
+  - 10551505304
+  - /data1/tokenization_nemotron_fwe_english_500b/CC-MAIN-2017-47_text_document
+  - 34664382972
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-35_translated_file_part2_hi_text_document
+  - 29954428740
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-22_translated_file_part1_hi_text_document
+  - 32863196232
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-27_translated_file_part2_hi_text_document
+  - 27974617776
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-40_translated_file_part2_hi_text_document
+  - 33240586116
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-36_translated_file_part2_hi_text_document
+  - 33632613352
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-07_translated_file_part2_hi_text_document
+  - 34730321032
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-15_translated_file_part2_hi_text_document
+  - 34362464664
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-30_translated_file_part1_hi_text_document
+  - 35826896340
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-42_translated_file_part1_hi_text_document
+  - 33630195000
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-07_translated_file_part1_hi_text_document
+  - 35785994068
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-35_translated_file_part1_hi_text_document
+  - 8362293208
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-47_translated_file_part2_hi_text_document
+  - 20489041560
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-17_translated_file_part2_hi_text_document
+  - 35865905924
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-35_translated_file_part2_hi_text_document
+  - 43863340952
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-50_translated_file_part2_hi_text_document
+  - 20442734100
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-17_translated_file_part1_hi_text_document
+  - 36789999452
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-40_translated_file_part1_hi_text_document
+  - 11428257800
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-04_translated_file_part2_hi_text_document
+  - 34173609984
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-32_translated_file_part1_hi_text_document
+  - 34322016008
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-30_translated_file_part2_hi_text_document
+  - 32816845488
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-27_translated_file_part1_hi_text_document
+  - 34250004136
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-48_translated_file_part2_hi_text_document
+  - 6054166132
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-22_translated_file_part1_hi_text_document
+  - 35141136028
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-11_translated_file_part1_hi_text_document
+  - 29990970312
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-22_translated_file_part2_hi_text_document
+  - 30925635856
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-49_translated_file_part1_hi_text_document
+  - 11384714832
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-04_translated_file_part1_hi_text_document
+  - 33337448184
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-36_translated_file_part1_hi_text_document
+  - 12963569164
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-43_translated_file_part1_hi_text_document
+  - 32735746912
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-14_translated_file_part1_hi_text_document
+  - 6521927900
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-39_translated_file_part2_hi_text_document
+  - 34230656212
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-48_translated_file_part1_hi_text_document
+  - 43851268928
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-50_translated_file_part1_hi_text_document
+  - 36831185816
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-22_translated_file_part1_hi_text_document
+  - 6524190116
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-39_translated_file_part1_hi_text_document
+  - 36362627408
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-10_translated_file_part1_hi_text_document
+  - 27863706160
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-40_translated_file_part1_hi_text_document
+  - 33987386636
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-06_translated_file_part2_hi_text_document
+  - 34043101312
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-06_translated_file_part1_hi_text_document
+  - 36267188316
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2014-10_translated_file_part2_hi_text_document
+  - 13004300548
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-43_translated_file_part2_hi_text_document
+  - 6047424940
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-22_translated_file_part2_hi_text_document
+  - 28557965576
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-18_translated_file_part1_hi_text_document
+  - 28588986664
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2016-18_translated_file_part2_hi_text_document
+  - 35149508880
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-11_translated_file_part2_hi_text_document
+  - 8310353296
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2017-47_translated_file_part1_hi_text_document
+  - 34179151884
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-32_translated_file_part2_hi_text_document
+  - 32743498556
+  - /data1/tokenization_nemotron_fwe_hindi_500b/CC-MAIN-2015-14_translated_file_part2_hi_text_document
+  chat: false
+  chat_prompt_tokens:
+    system_turn_start: "\0"
+    turn_start: "\x11"
+    label_start: "\x12"
+    end_of_turn: '
+
+      '
+    end_of_name: '
+
+      '
+  sample: false
+  train_ds:
+    file_path: /home/data/safety_on_pt2.jsonl
+    global_batch_size: 192
+    micro_batch_size: 3
+    shuffle: true
+    memmap_workers: null
+    max_seq_length: 2048
+    min_seq_length: 1
+    drop_last: true
+    label_key: completion
+    add_eos: true
+    add_sep: false
+    add_bos: false
+    truncation_field: prompt
+    index_mapping_dir: null
+    prompt_template: '{prompt} {completion}'
+    hf_dataset: false
+    truncation_method: right
+  validation_ds:
+    file_path: /home/data/safety_on_pt2.jsonl
+    global_batch_size: 32
+    micro_batch_size: 1
+    shuffle: false
+    memmap_workers: null
+    max_seq_length: 2048
+    min_seq_length: 1
+    drop_last: true
+    label_key: completion
+    add_eos: true
+    add_sep: false
+    add_bos: false
+    truncation_field: prompt
+    index_mapping_dir: null
+    prompt_template: '{prompt} {completion}'
+    hf_dataset: false
+    truncation_method: right
+    output_original_text: true
+precision: bf16
+restore_from_path: /home/nemo_ckpt/pt2_2_9B_param_2T_en_hi_step230942.nemo
+save_nemo_on_validation_end: true
+answer_only_loss: false
+seq_len_interpolation_factor: null
+steerlm2:
+  forward_micro_batch_size: 1
+  micro_batch_size: 1
+peft:
+  peft_scheme: none
+  restore_from_path: null
+  lora_tuning:
+    target_modules:
+    - attention_qkv
+    adapter_dim: 32
+    adapter_dropout: 0.0
+    column_init_method: xavier
+    row_init_method: zero
+    layer_selection: null
+    weight_tying: false
+    position_embedding_strategy: null
+target: nemo_aligner.models.nlp.gpt.gpt_sft_model.GPTSFTModel
+nemo_version: 2.1.0rc2

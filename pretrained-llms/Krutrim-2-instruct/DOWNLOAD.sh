@@ -1,0 +1,11 @@
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00001-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00002-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00003-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00004-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00005-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00006-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00007-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00008-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00009-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/pytorch_model-00010-of-00010.bin
+wget https://huggingface.co/krutrim-ai-labs/Krutrim-2-instruct/resolve/main/tokenizer.json
