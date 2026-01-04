@@ -34,7 +34,7 @@ This repo supports three decoding modes (same conditioning/prompt; only decoding
 
 4. **Masked diffusion decoding**
    - Initialize the transcript as fully masked `[MASK] × N`.
-   - For each step, **fill masked positions** and **re-mask the least confident** tokens to refine. :contentReference[oaicite:4]{index=4}
+   - For each step, **fill masked positions** and **re-mask the least confident** tokens to refine.
 
 ---
 
@@ -45,7 +45,7 @@ This repo supports three decoding modes (same conditioning/prompt; only decoding
 | Whisper + MLP + AR-LLM (8B, IFT) | 9.65 | 8.34 |
 | Whisper + MLP + LLaDA-8B (IFT, 1-step) | 23.90 | 44.15 |
 | Whisper + MLP + LLaDA-8B (IFT, 8-step) | 11.14 | 23.40 |
-| Whisper + MLP + LLaDA-8B (IFT, 8-step, 16 blocks) | 10.15 | 1.74 | :contentReference[oaicite:5]{index=5}
+| Whisper + MLP + LLaDA-8B (IFT, 8-step, 16 blocks) | 10.15 | 1.74 |
 
 > **Interpretation:** iterative refinement (8-step) improves WER vs single-step, and blockwise decoding can improve stability and practical speed/controllability trade-offs.
 
@@ -56,7 +56,7 @@ This repo supports three decoding modes (same conditioning/prompt; only decoding
 - **Evaluation:** dev-clean, dev-other, test-clean, test-other
 - **Metrics:**
   - **WER** (word error rate)
-  - **RTF / RTFx** (real-time factor style speed metric; define normalization clearly in your runs) :contentReference[oaicite:7]{index=7}
+  - **RTF / RTFx** (real-time factor style speed metric; define normalization clearly in your runs)
 
 ---
 The following workflow has been tested on an Ubuntu 20.04 LTS machine with 256 GB RAM and an NVIDIA H100 GPU (80GB VRAM).
