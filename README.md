@@ -38,7 +38,7 @@ This repo supports three decoding modes (same conditioning/prompt; only decoding
 
 ---
 
-## Results (from the report)
+## Results
 
 | Model / Inference | Avg WER (%) | Avg RTFx |
 |---|---:|---:|
